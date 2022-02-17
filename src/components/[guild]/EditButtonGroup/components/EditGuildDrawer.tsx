@@ -20,6 +20,7 @@ import IconSelector from "components/create-guild/IconSelector"
 import LogicPicker from "components/create-guild/LogicPicker"
 import Name from "components/create-guild/Name"
 import Requirements from "components/create-guild/Requirements"
+import TransferOwnership from "components/create-guild/TransferOwnership"
 import DeleteGuildButton from "components/[guild]/edit/index/DeleteGuildButton"
 import useEdit from "components/[guild]/hooks/useEdit"
 import useGuild from "components/[guild]/hooks/useGuild"
@@ -148,6 +149,10 @@ const EditGuildDrawer = ({
                     <Requirements maxCols={2} />
                   </>
                 )}
+
+                <Section title="Transfer guild ownership">
+                  <TransferOwnership />
+                </Section>
               </VStack>
             </FormProvider>
           </DrawerBody>
