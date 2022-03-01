@@ -19,8 +19,14 @@ import { ArrowClockwise, Question } from "phosphor-react"
 import LinkedAddress from "./LinkedAddress"
 
 const AccountConnections = () => {
-  const { isLoading, addresses, linkedAddressesCount, discordId, verifyAddress } =
-    useUser()
+  const {
+    isLoading,
+    addresses,
+    linkedAddressesCount,
+    discordId,
+    verifyAddress,
+    isSigning,
+  } = useUser()
   const { account } = useWeb3React()
 
   return (
@@ -95,7 +101,7 @@ const AccountConnections = () => {
       {linkedAddressesCount && !Array.isArray(addresses) && (
         <Button
           onClick={verifyAddress}
-          isLoading={isLoading}
+          isLoading={isSigning}
           loadingText="Check your wallet"
         >
           Sign message to verify address
