@@ -43,14 +43,12 @@ const useUser = () => {
   const { isValidating, data } = useSWR<User>(
     account ? [endpoint, validation] : null,
     null,
-    validation
-      ? {
-          refreshInterval: 0,
-          revalidateOnFocus: false,
-          revalidateOnReconnect: false,
-          revalidateIfStale: false,
-        }
-      : {}
+    {
+      refreshInterval: 0,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      revalidateIfStale: false,
+    }
   )
 
   return {
