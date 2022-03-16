@@ -54,8 +54,9 @@ const DCAuth = () => {
 
     const target = `${window.location.origin}/${urlName}`
 
-    const sendError = (e: string, d: string) =>
-      window.opener?.postMessage(
+    const sendError = (e: string, d: string) => {
+      console.log("window.opener", window.opener)
+      return window.opener?.postMessage(
         {
           type: "DC_AUTH_ERROR",
           data: {
@@ -65,6 +66,7 @@ const DCAuth = () => {
         },
         target
       )
+    }
 
     // Error from authentication
     if (error) sendError(error, errorDescription)
@@ -72,13 +74,16 @@ const DCAuth = () => {
     fetchUserID(tokenType, accessToken)
       .then((id) =>
         // Later maybe add an endpoint that can just store an id. Fetch it here if opener is closed
-        window.opener?.postMessage(
-          {
-            type: "DC_AUTH_SUCCESS",
-            data: { id },
-          },
-          target
-        )
+        {
+          console.log("window.opener", window.opener)
+          return window.opener?.postMessage(
+            {
+              type: "DC_AUTH_SUCCESS",
+              data: { id },
+            },
+            target
+          )
+        }
       )
       // Error from discord api fetching
       .catch(({ name, message }) => sendError(name, message))

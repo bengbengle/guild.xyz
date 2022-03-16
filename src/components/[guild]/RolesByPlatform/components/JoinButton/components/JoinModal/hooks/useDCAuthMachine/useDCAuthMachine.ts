@@ -88,7 +88,7 @@ const useDCAuthMachine = (): Machine<ContextType> => {
       openWindow: () => {
         authWindow.current = window.open(
           `https://discord.com/api/oauth2/authorize?client_id=${process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID}&response_type=token&scope=identify&redirect_uri=${process.env.NEXT_PUBLIC_DISCORD_REDIRECT_URI}&state=${guild?.urlName}`,
-          "_blank",
+          "dc_auth",
           `height=750,width=600,scrollbars`
         )
 
@@ -112,6 +112,7 @@ const useDCAuthMachine = (): Machine<ContextType> => {
       },
 
       closeWindow: () => {
+        console.log("authWindow.current", authWindow.current)
         window.removeEventListener("message", listener.current)
         listener.current = null
         authWindow.current.close()
