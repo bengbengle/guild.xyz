@@ -1,12 +1,11 @@
 import { FormControl, Input } from "@chakra-ui/react"
-import { useRumAction, useRumError } from "@datadog/rum-react-integration"
 import FormErrorMessage from "components/common/FormErrorMessage"
 import React, { useEffect } from "react"
 import { useFormContext } from "react-hook-form"
 
 const Name = (): JSX.Element => {
-  const addDatadogAction = useRumAction("trackingAppAction")
-  const addDatadogError = useRumError()
+//  const addDatadogAction = useRumAction("trackingAppAction")
+  // const addDatadogError = useRumError()
 
   const {
     register,
@@ -23,12 +22,12 @@ const Name = (): JSX.Element => {
 
   const onBlur = (e) => {
     defaultOnBlur(e)
-    if (e.target.value) addDatadogAction("Typed in name")
+    // if (e.target.value) addDatadogAction("Typed in name")
   }
 
   useEffect(() => {
     if (!errors.name) return
-    addDatadogError("Name error", { error: errors.name }, "custom")
+    // addDatadogError("Name error", { error: errors.name }, "custom")
   }, [errors.name])
 
   return (

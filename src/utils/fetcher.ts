@@ -3,7 +3,7 @@ const fetcher = async (
   { body, validation, ...init }: Record<string, any> = {}
 ) => {
   const api =
-    !resource.startsWith("http") && !resource.startsWith("/api")
+    !resource?.startsWith("http") && !resource?.startsWith("/api")
       ? process.env.NEXT_PUBLIC_API
       : ""
 

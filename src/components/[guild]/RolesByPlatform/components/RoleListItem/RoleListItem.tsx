@@ -8,7 +8,7 @@ import {
   Tag,
   Text,
   VStack,
-  Wrap,
+  Wrap
 } from "@chakra-ui/react"
 import Button from "components/common/Button"
 import GuildLogo from "components/common/GuildLogo"
@@ -36,7 +36,7 @@ const RoleListItem = ({
   isInitiallyExpanded = false,
 }: Props): JSX.Element => {
   const isOwner = useIsOwner()
-
+  console.log('isOwner:', isOwner)
   const requirements = useRequirementLabels(roleData.requirements)
   const [isRequirementsExpanded, setIsRequirementsExpanded] =
     useState(isInitiallyExpanded)

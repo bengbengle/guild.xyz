@@ -3,11 +3,15 @@ import useUser from "./useUser"
 
 const useIsOwner = () => {
   const { id } = useUser()
-  const guild = useGuild()
+  const guild:any = useGuild()
 
-  if (typeof guild?.owner?.id !== "number" || typeof id !== "number") return false
+  const owner: number = guild?.admins[0].id 
 
-  return guild.owner.id === id
+  return owner === id // ()
+
+  // if (typeof guild?.owner?.id !== "number" || typeof id !== "number") return false
+
+  // return guild.owner.id === id
 }
 
 export default useIsOwner

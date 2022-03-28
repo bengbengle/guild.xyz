@@ -1,5 +1,4 @@
 import { Icon, Input, InputGroup, InputLeftElement } from "@chakra-ui/react"
-import { useRumAction } from "@datadog/rum-react-integration"
 import useDebouncedState from "hooks/useDebouncedState"
 import { MagnifyingGlass } from "phosphor-react"
 import React, { useEffect, useState } from "react"
@@ -15,13 +14,13 @@ const SearchBar = ({
   search,
   setSearch,
 }: Props): JSX.Element => {
-  const addDatadogAction = useRumAction("trackingAppAction")
+  // const addDatadogAction = useRumAction("trackingAppAction")
 
   const [localValue, setLocalValue] = useState(search)
   const debouncedValue = useDebouncedState(localValue)
 
   const handleOnChange = async ({ target: { value } }) => {
-    addDatadogAction("Typed in search bar")
+    // addDatadogAction("Typed in search bar")
     setLocalValue(value)
   }
 
@@ -49,7 +48,7 @@ const SearchBar = ({
         id="searchBar"
         value={localValue}
         onChange={handleOnChange}
-        onFocus={() => addDatadogAction("Focused search bar")}
+        // onFocus={() => addDatadogAction("Focused search bar")}
       />
     </InputGroup>
   )

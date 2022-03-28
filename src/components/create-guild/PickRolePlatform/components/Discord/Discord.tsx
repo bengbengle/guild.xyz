@@ -13,9 +13,8 @@ import {
   SimpleGrid,
   Text,
   Tooltip,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react"
-import { useRumAction, useRumError } from "@datadog/rum-react-integration"
 import Button from "components/common/Button"
 import FormErrorMessage from "components/common/FormErrorMessage"
 import { Check } from "phosphor-react"
@@ -25,8 +24,8 @@ import { GuildFormType } from "types"
 import useServerData from "./hooks/useServerData"
 
 const Discord = () => {
-  const addDatadogAction = useRumAction("trackingAppAction")
-  const addDatadogError = useRumError()
+//  const addDatadogAction = useRumAction("trackingAppAction")
+  // const addDatadogError = useRumError()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const {
@@ -62,26 +61,26 @@ const Discord = () => {
   // Sending actionst & errors to datadog
   useEffect(() => {
     if (!invite) return
-    addDatadogAction("Pasted a Discord invite link")
+    // addDatadogAction("Pasted a Discord invite link")
   }, [invite])
 
   useEffect(() => {
     if (!errors.discord_invite) return
-    addDatadogError(
-      "Discord invite field error",
-      { error: errors.discord_invite },
-      "custom"
-    )
+    // addDatadogError(
+    //   "Discord invite field error",
+    //   { error: errors.discord_invite },
+    //   "custom"
+    // )
   }, [errors.discord_invite])
 
   useEffect(() => {
     if (!invite || errors.discord_invite) return
     if (channels?.length) {
-      addDatadogAction("Successful platform setup")
-      addDatadogAction("Successfully fetched Discord channels")
+      // addDatadogAction("Successful platform setup")
+      // addDatadogAction("Successfully fetched Discord channels")
       return
     }
-    addDatadogError("Could not fetch Discord channels", undefined, "custom")
+    // addDatadogError("Could not fetch Discord channels", undefined, "custom")
   }, [invite, errors.discord_invite, channels])
 
   useEffect(() => {

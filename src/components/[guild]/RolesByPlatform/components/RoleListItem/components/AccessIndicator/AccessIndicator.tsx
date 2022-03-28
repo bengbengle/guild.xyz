@@ -1,7 +1,7 @@
 import { Icon, Spinner, useColorModeValue } from "@chakra-ui/react"
 import { useWeb3React } from "@web3-react/core"
 import useAccess from "components/[guild]/RolesByPlatform/hooks/useAccess"
-import { Check, LockSimple, Warning, X } from "phosphor-react"
+import { Check, LockSimple, X } from "phosphor-react"
 import AccessIndicatorUI from "./components/AccessIndicatorUI"
 import CenterIcon from "./components/CenterIcon"
 
@@ -37,14 +37,14 @@ const AccessIndicator = ({ roleId }: Props): JSX.Element => {
         icon={<Spinner boxSize={4} color={gray} />}
       />
     )
-
-  if (error?.find((err) => err.roleId === roleId)?.errors)
-    return (
-      <AccessIndicatorUI
-        label="Couldn’t check access"
-        icon={<Icon as={Warning} size={6} color={`orange.500`} />}
-      />
-    )
+      console.log('errors::', error)
+  // if (error?.find((err) => err.roleId === roleId)?.errors)
+  //   return (
+  //     <AccessIndicatorUI
+  //       label="Couldn’t check access"
+  //       icon={<Icon as={Warning} size={6} color={`orange.500`} />}
+  //     />
+  //   )
 
   return <AccessIndicatorUI label="No access" icon={<CenterIcon icon={X} />} />
 }

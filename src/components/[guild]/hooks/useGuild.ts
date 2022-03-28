@@ -6,7 +6,6 @@ const useGuild = (): Guild => {
   const router = useRouter()
 
   const { data } = useSWRImmutable(`/guild/${router.query.guild}`)
-
   return data
 }
 

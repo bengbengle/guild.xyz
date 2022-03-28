@@ -1,4 +1,3 @@
-import { useRumAction, useRumError } from "@datadog/rum-react-integration"
 import { useWeb3React } from "@web3-react/core"
 import useGuild from "components/[guild]/hooks/useGuild"
 import { useSubmitWithSign } from "hooks/useSubmit"
@@ -14,8 +13,8 @@ type Response = {
 
 const useJoinPlatform = (platform: PlatformName, platformUserId: string) => {
   const { account, library } = useWeb3React()
-  const addDatadogAction = useRumAction("trackingAppAction")
-  const addDatadogError = useRumError()
+  // const addDatadogAction = useRumAction("trackingAppAction")
+  // const addDatadogError = useRumError()
 
   const guild = useGuild()
 
@@ -31,13 +30,13 @@ const useJoinPlatform = (platform: PlatformName, platformUserId: string) => {
   const useSubmitResponse = useSubmitWithSign<any, Response>(submit, {
     // Revalidating the address list in the AccountModal component
     onSuccess: () => {
-      addDatadogAction(`Successfully joined a guild`)
-      addDatadogAction(`Successfully joined a guild [${platform}]`)
+      // addDatadogAction(`Successfully joined a guild`)
+      // addDatadogAction(`Successfully joined a guild [${platform}]`)
       mutate(`/user/${account}`)
     },
     onError: (err) => {
-      addDatadogError(`Guild join error`, { error: err }, "custom")
-      addDatadogError(`Guild join error [${platform}]`, { error: err }, "custom")
+      // addDatadogError(`Guild join error`, { error: err }, "custom")
+      // addDatadogError(`Guild join error [${platform}]`, { error: err }, "custom")
     },
   })
 

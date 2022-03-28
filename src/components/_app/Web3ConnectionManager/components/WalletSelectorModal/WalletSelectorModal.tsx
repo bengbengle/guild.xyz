@@ -7,12 +7,10 @@ import {
   ModalHeader,
   ModalOverlay,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react"
 import {
-  useRumAction,
-  useRumError,
-  WithRumComponentContext,
+  WithRumComponentContext
 } from "@datadog/rum-react-integration"
 import MetaMaskOnboarding from "@metamask/onboarding"
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -42,8 +40,8 @@ const WalletSelectorModal = ({
   closeModal,
   openNetworkModal, // Passing as prop to avoid dependency cycle
 }: Props): JSX.Element => {
-  const addDatadogAction = useRumAction("trackingAppAction")
-  const addDatadogError = useRumError()
+//  const addDatadogAction = useRumAction("trackingAppAction")
+  // const addDatadogError = useRumError()
 
   const { active, activate, connector, setError, error } = useWeb3React()
 
@@ -58,7 +56,7 @@ const WalletSelectorModal = ({
     activate(provider, undefined, true).catch((err) => {
       setActivatingConnector(undefined)
       setError(err)
-      addDatadogError("Wallet connection error", { error: err }, "custom")
+      // addDatadogError("Wallet connection error", { error: err }, "custom")
     })
   }
   const handleOnboarding = () => onboarding.current?.startOnboarding()
@@ -76,7 +74,7 @@ const WalletSelectorModal = ({
 
   const closeModalAndSendAction = () => {
     closeModal()
-    addDatadogAction("Wallet selector modal closed")
+    // addDatadogAction("Wallet selector modal closed")
   }
 
   return (

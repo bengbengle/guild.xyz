@@ -1,4 +1,3 @@
-import { useRumAction, useRumError } from "@datadog/rum-react-integration"
 import useJsConfetti from "components/create-guild/hooks/useJsConfetti"
 import useMatchMutate from "hooks/useMatchMutate"
 import useShowErrorToast from "hooks/useShowErrorToast"
@@ -21,8 +20,8 @@ type FormInputs = {
 type RoleOrGuild = Role & Guild & FormInputs & { sign?: boolean }
 
 const useCreate = () => {
-  const addDatadogAction = useRumAction("trackingAppAction")
-  const addDatadogError = useRumError()
+//  const addDatadogAction = useRumAction("trackingAppAction")
+  // const addDatadogError = useRumError()
 
   const { mutate } = useSWRConfig()
   const matchMutate = useMatchMutate()
@@ -43,17 +42,17 @@ const useCreate = () => {
 
   const useSubmitResponse = useSubmitWithSign<any, RoleOrGuild>(fetchData, {
     onError: (error_) => {
-      addDatadogError(
-        `${router.query.guild ? "Role" : "Guild"} creation error`,
-        { error: error_ },
-        "custom"
-      )
+      // addDatadogError(
+      //   `${router.query.guild ? "Role" : "Guild"} creation error`,
+      //   { error: error_ },
+      //   "custom"
+      // )
       showErrorToast(error_)
     },
     onSuccess: (response_) => {
-      addDatadogAction(
-        `Successful ${router.query.guild ? "role" : "guild"} creation`
-      )
+      // addDatadogAction(
+      //   `Successful ${router.query.guild ? "role" : "guild"} creation`
+      // )
       triggerConfetti()
       if (router.query.guild) {
         toast({
