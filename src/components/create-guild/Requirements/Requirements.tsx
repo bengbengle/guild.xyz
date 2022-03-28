@@ -1,10 +1,18 @@
-import { Box, Checkbox, SimpleGrid, Text } from "@chakra-ui/react"
+import {
+  Box,
+  Checkbox,
+  SimpleGrid,
+  Text,
+  useBreakpointValue
+} from "@chakra-ui/react"
 import Section from "components/common/Section"
 import { AnimatePresence, AnimateSharedLayout } from "framer-motion"
 import { useEffect, useState } from "react"
 import { useFieldArray, useFormContext } from "react-hook-form"
 import { GuildFormType, Requirement, RequirementType } from "types"
 import AddRequirementCard from "./components/AddRequirementCard"
+import AllowlistFormCard from "./components/AllowlistFormCard"
+import BalancyCounter from "./components/BalancyCounter"
 import FormCard from "./components/FormCard"
 import JuiceboxFormCard from "./components/JuiceboxFormCard"
 import MirrorFormCard from "./components/MirrorFormCard"
@@ -13,7 +21,6 @@ import PoapFormCard from "./components/PoapFormCard"
 import SnapshotFormCard from "./components/SnapshotFormCard"
 import TokenFormCard from "./components/TokenFormCard"
 import UnlockFormCard from "./components/UnlockFormCard"
-import WhitelistFormCard from "./components/WhitelistFormCard"
 
 const REQUIREMENT_FORMCARDS = {
   ERC20: TokenFormCard,
@@ -21,7 +28,7 @@ const REQUIREMENT_FORMCARDS = {
   POAP: PoapFormCard,
   MIRROR: MirrorFormCard,
   SNAPSHOT: SnapshotFormCard,
-  WHITELIST: WhitelistFormCard,
+  ALLOWLIST: AllowlistFormCard,
   ERC721: NftFormCard,
   ERC1155: NftFormCard,
   JUICEBOX: JuiceboxFormCard,
@@ -75,6 +82,8 @@ const Requirements = ({ maxCols = 2 }: Props): JSX.Element => {
     !!controlledFields?.find((requirement) => requirement.type === "FREE")
   )
 
+  const isMobile = useBreakpointValue({ base: true, sm: false })
+
   useEffect(() => {
     // Find the free requirement type, or add one
     const freeEntryRequirement = controlledFields?.find(
@@ -115,9 +124,11 @@ const Requirements = ({ maxCols = 2 }: Props): JSX.Element => {
             >
               Free entry
             </Checkbox>
+            {!freeEntry && !isMobile && <BalancyCounter ml="auto !important" />}
           </>
         }
       >
+        {!freeEntry && isMobile && <BalancyCounter />}
         <AnimateSharedLayout>
           <SimpleGrid
             position="relative"
@@ -133,6 +144,7 @@ const Requirements = ({ maxCols = 2 }: Props): JSX.Element => {
                 if (RequirementFormCard) {
                   return (
                     <FormCard
+                      index={i}
                       type={type}
                       onRemove={() => removeRequirement(i)}
                       key={field.id}

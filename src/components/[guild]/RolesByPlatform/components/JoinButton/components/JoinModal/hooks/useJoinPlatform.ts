@@ -25,6 +25,12 @@ const useJoinPlatform = (platform: PlatformName, platformUserId: string) => {
     fetcher(`/user/join`, {
       body: data,
       validation,
+    }).then((body) => {
+      if (body === "rejected") {
+        // eslint-disable-next-line @typescript-eslint/no-throw-literal
+        throw "Something went wrong, join request rejected."
+      }
+      return body
     })
 
   const useSubmitResponse = useSubmitWithSign<any, Response>(submit, {
@@ -44,9 +50,13 @@ const useJoinPlatform = (platform: PlatformName, platformUserId: string) => {
     ...useSubmitResponse,
     onSubmit: () =>
       useSubmitResponse.onSubmit({
-        platform,
         guildId: guild?.id,
-        platformUserId,
+        ...(platform?.length > 0
+          ? {
+              platformUserId,
+              platform,
+            }
+          : {}),
       }),
   }
 }
